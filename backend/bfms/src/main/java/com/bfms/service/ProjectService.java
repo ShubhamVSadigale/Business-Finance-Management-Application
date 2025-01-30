@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.bfms.model.Event;
 import com.bfms.model.Project;
 import com.bfms.repository.EventRepository;
 import com.bfms.repository.ProjectRepository;
@@ -32,6 +33,9 @@ public class ProjectService {
     public Optional<Project> getProjectById(String projectId) {
         return projectRepository.findById(projectId);
     }
+    public List<Project> getProjectByStatus(String status) {
+        return projectRepository.findByStatus(Project.ProjectStatus.valueOf(status));
+    }
 
     public Project updateProject(String projectId, Project updatedProject) {
         return projectRepository.findById(projectId)
@@ -48,5 +52,15 @@ public class ProjectService {
 
     public void deleteProject(String projectId) {
         projectRepository.deleteById(projectId);
+    }
+    
+    public List<Event> getUpcomingEvents() {
+        LocalDateTime now = LocalDateTime.now();
+        List<Project> projects = projectRepository.findProjectsWithUpcomingEvents(now);
+        
+        return projects.stream()
+                .flatMap(project -> project.getEvents().stream()
+                        .filter(event -> event.getEventDate().isAfter(now)))
+                .collect(Collectors.toList());
     }
 }

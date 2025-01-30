@@ -24,11 +24,21 @@ function Dashboard() {
     //   {id: 3, name: "Project C", status: "Planning"},
     // ]);
 
-    setUpcomingEvents([
-      {id: 1, name: "Meeting for Project A", date: "2023-05-15"},
-      {id: 2, name: "Deadline for Project B", date: "2023-05-20"},
-      {id: 3, name: "Kickoff for Project C", date: "2023-05-25"},
-    ]);
+    // setUpcomingEvents([
+    //   {id: 1, name: "Meeting for Project A", date: "2023-05-15"},
+    //   {id: 2, name: "Deadline for Project B", date: "2023-05-20"},
+    //   {id: 3, name: "Kickoff for Project C", date: "2023-05-25"},
+    // ]);
+
+    axios
+      .get("http://localhost:8080/api/projects/upcoming-events")
+      .then((response) => {
+        console.log(response.data);
+        // setEmpdata(response.data);
+        setUpcomingEvents(response.data);
+
+        console.log(response.data);
+      });
   }, []);
 
   return (
@@ -79,9 +89,11 @@ function Dashboard() {
             <ul>
               {upcomingEvents.map((event) => (
                 <li key={event.id} className="mb-2">
-                  <span className="font-semibold">{event.name}</span>
+                  <span className="font-semibold">{event.title}</span>
                   <br />
-                  <span className="text-sm text-gray-600">{event.date}</span>
+                  <span className="text-sm text-gray-600">
+                    {event.eventDate}
+                  </span>
                 </li>
               ))}
             </ul>

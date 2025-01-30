@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import com.bfms.model.Event;
 import com.bfms.model.Project;
 
 public interface ProjectRepository extends MongoRepository<Project, String>{
@@ -14,4 +15,8 @@ public interface ProjectRepository extends MongoRepository<Project, String>{
     
     @Query("{'events.eventDate': {$gte: ?0, $lte: ?1}}")
     List<Project> findProjectsWithEventsInDateRange(LocalDateTime start, LocalDateTime end);
+    
+    @Query("{'events.eventDate': {$gte: ?0}}")
+    List<Project> findProjectsWithUpcomingEvents(LocalDateTime currentDate);
+
 }

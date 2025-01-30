@@ -6,6 +6,7 @@ import ProjectDetails from "./components/ProjectDetails";
 import AddEditProject from "./components/AddEditProject";
 import AddProject from "./components/AddProject";
 import EditProject from "./components/EditProject";
+import AddProject2 from "./components/AddProject2";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
-        <Route path="/add-project" element={<AddProject />} />
+        <Route path="/add-project" element={<AddEditProject />} />
         <Route path="/edit-project/:id" element={<EditProject />} />
       </Routes>
     </div>

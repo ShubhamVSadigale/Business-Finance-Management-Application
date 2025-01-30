@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bfms.model.Event;
 import com.bfms.model.Project;
 import com.bfms.repository.ProjectRepository;
 import com.bfms.service.ProjectService;
@@ -57,5 +58,17 @@ public class ProjectController {
     public ResponseEntity<Void> deleteProject(@PathVariable String projectId) {
         projectService.deleteProject(projectId);
         return ResponseEntity.ok().build();
+    }
+    
+    //Methods for getting the projects by status
+    @GetMapping("/getProjectsByStatus/{status}")
+    public ResponseEntity<List<Project>> getProjectByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(projectService.getProjectByStatus(status));
+    }
+    
+    @GetMapping("/upcoming-events")
+    public ResponseEntity<List<Event>> getUpcomingEvents() {
+        List<Event> upcomingEvents = projectService.getUpcomingEvents();
+        return ResponseEntity.ok(upcomingEvents);
     }
 }

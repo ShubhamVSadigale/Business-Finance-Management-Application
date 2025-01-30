@@ -74,8 +74,11 @@ function AddProject() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    project.startDate = generateDateTimeWithDefaultTime(project.startDate);
-    project.endDate = generateDateTimeWithDefaultTime(project.endDate);
+    // project.startDate = generateDateTimeWithDefaultTime(project.startDate);
+    // project.endDate = generateDateTimeWithDefaultTime(project.endDate);
+
+    project.startDate = "2024-08-25T18:30:00.000Z";
+    project.endDate = "2025-08-25T18:30:00.000Z";
 
     console.log("New Project data:", project);
     // Here you would typically send the data to your backend
