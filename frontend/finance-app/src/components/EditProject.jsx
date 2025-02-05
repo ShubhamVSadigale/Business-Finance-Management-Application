@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function EditProject() {
   const [formData, setFormData] = useState({
@@ -52,6 +54,9 @@ function EditProject() {
   };
 
   return (
+    <div>
+      <Navbar />
+
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Edit Project</h1>
       <form
@@ -132,7 +137,7 @@ function EditProject() {
             required
           >
             <option value="Planning">Planning</option>
-            <option value="In Progress">In Progress</option>
+            <option value="In_Progress">In Progress</option>
             <option value="Completed">Completed</option>
           </select>
         </div>
@@ -160,13 +165,15 @@ function EditProject() {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Update Project
           </button>
         </div>
       </form>
+    </div>
+    <footer />
     </div>
   );
 }
