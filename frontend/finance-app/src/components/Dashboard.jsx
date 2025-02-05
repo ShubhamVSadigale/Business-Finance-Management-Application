@@ -2,10 +2,12 @@ import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 
+
 //Dahboard updated
 function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+  //updated new
 
   useEffect(() => {
     // Fetch projects and upcoming events from your API
