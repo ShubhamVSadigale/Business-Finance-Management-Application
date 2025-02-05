@@ -68,6 +68,18 @@ button:focus-visible {
 } */
 @import "tailwindcss";  
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
