@@ -2,7 +2,8 @@ import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 
-//Updated dashboard
+
+//Dahboard updated
 function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
