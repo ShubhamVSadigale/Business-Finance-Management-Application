@@ -6,6 +6,7 @@ import axios from "axios";
 function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
+  //updated new
 
   useEffect(() => {
     // Fetch projects and upcoming events from your API
