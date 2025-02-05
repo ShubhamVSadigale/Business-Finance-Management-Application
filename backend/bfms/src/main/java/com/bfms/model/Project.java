@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 @Document(collection = "projects")
 public class Project {
 	@Id
@@ -17,9 +19,19 @@ public class Project {
 	private List<Event> events;
 	private ProjectStatus status;
 
+//	public enum ProjectStatus {
+//		PLANNING, IN_PROGRESS, COMPLETED, ON_HOLD
+//	}
+	
 	public enum ProjectStatus {
-		PLANNING, IN_PROGRESS, COMPLETED, ON_HOLD
+	    PLANNING, IN_PROGRESS, COMPLETED, ON_HOLD;
+
+	    @JsonCreator
+	    public static ProjectStatus fromString(String value) {
+	        return ProjectStatus.valueOf(value.toUpperCase());
+	    }
 	}
+
 
 	public Project() {
 		super();

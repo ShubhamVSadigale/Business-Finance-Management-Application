@@ -6,7 +6,7 @@ function AddEditProject() {
   const [formData, setFormData] = useState({
     // name: "",
     // description: "",
-    // status: "Planning",
+    // status: "",
     events: [],
   });
   const [currentEvent, setCurrentEvent] = useState([]);
@@ -47,6 +47,8 @@ function AddEditProject() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the project data to your backend
+
+    formData.id = "P" + Date.now();
 
     formData.startDate = generateDateTimeWithDefaultTime(formData.startDate);
 
@@ -102,7 +104,14 @@ function AddEditProject() {
       title: "",
       description: "",
       eventDate: "",
-      notificationPreference: "ON_DAY",
+      notificationPreference: "",
+    });
+  };
+
+  const removeEvent = (eventId) => {
+    setFormData({
+      ...formData,
+      events: formData.events.filter((event) => event.eventId !== eventId),
     });
   };
 
@@ -217,10 +226,11 @@ function AddEditProject() {
             required
           >
             <option value="Planning">Planning</option>
-            <option value="In Progress">In Progress</option>
+            <option value="In_Progress">In Progress</option>
             <option value="Completed">Completed</option>
           </select>
         </div>
+
         <h2 className="text-2xl font-bold mb-4 mt-8">Events</h2>
 
         {formData?.events &&
@@ -280,7 +290,7 @@ function AddEditProject() {
               onChange={handleEventChange}
             >
               <option value="ON_DAY">On day</option>
-              <option value="BEFORE_ONE_DAY">Before on day</option>
+              <option value="BEFORE_ONE_DAY">Before one day</option>
               <option value="BEFORE_THREE_DAYS">Before three days</option>
             </select>
           </div>

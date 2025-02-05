@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.bfms.model.Event;
 import com.bfms.model.Project;
+import com.bfms.model.Project.ProjectStatus;
 import com.bfms.repository.EventRepository;
 import com.bfms.repository.ProjectRepository;
 
@@ -22,7 +23,9 @@ public class ProjectService {
     private EventRepository eventRepository;
 
     public Project addNewProject(Project project) {
-        project.setStatus(Project.ProjectStatus.PLANNING);
+//        project.setStatus(Project.ProjectStatus.PLANNING);
+//    	project.setStatus(Project.ProjectStatus.valueOf(project.getStatus().toString()));
+        project.setStatus(ProjectStatus.fromString(project.getStatus().name()));
         return projectRepository.save(project);
     }
 
