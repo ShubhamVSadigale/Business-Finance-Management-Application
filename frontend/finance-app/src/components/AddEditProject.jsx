@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import Navbar from "./Navbar";
+import footer from "./Footer";
 
 function AddEditProject() {
   const [formData, setFormData] = useState({
@@ -123,6 +125,9 @@ function AddEditProject() {
   }
 
   return (
+    <div>
+      <Navbar />
+
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">
         {isEditing ? "Edit Project" : "Add New Project"}
@@ -297,7 +302,7 @@ function AddEditProject() {
           <button
             type="button"
             onClick={addEvent}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-gray-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Add Event
           </button>
@@ -326,13 +331,15 @@ function AddEditProject() {
         </div> */}
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             {isEditing ? "Update Project" : "Add Project"}
           </button>
         </div>
       </form>
+    </div>
+  <Footer />
     </div>
   );
 }

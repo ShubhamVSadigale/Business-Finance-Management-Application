@@ -1,34 +1,84 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { BriefcaseIcon, PlusCircleIcon, CalendarIcon, UploadIcon } from '@heroicons/react/outline'; // Assuming you're using Heroicons v1
+import { motion } from 'framer-motion';
 
 function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">
+      <main className="flex-grow container mx-auto px-8 py-16">
+        <motion.h1
+          className="text-3xl font-semibold text-center text-gray-800 mb-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
           Welcome to Business Finance Management Application
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link
-            to="/dashboard"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg text-center text-xl transition duration-300 ease-in-out transform hover:scale-105"
+        </motion.h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12">
+          {/* Top Row */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            View All Projects
-          </Link>
-          <Link
-            to="/add-project"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg text-center text-xl transition duration-300 ease-in-out transform hover:scale-105"
+            <Link
+              to="/dashboard"
+              className="bg-gray-800 hover:bg-gray-900 text-white font-medium py-4 px-8 w-full max-w-md text-center text-lg rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
+            >
+              <BriefcaseIcon className="w-6 h-6 mb-2 mx-auto" />
+              View All Projects
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Add New Project
-          </Link>
-          <Link
-            to="/events"
-            className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg text-center text-xl transition duration-300 ease-in-out transform hover:scale-105"
+            <Link
+              to="/add-project"
+              className="bg-gray-800 hover:bg-gray-900 text-white font-medium py-4 px-8 w-full max-w-md text-center text-lg rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
+            >
+              <PlusCircleIcon className="w-6 h-6 mb-2 mx-auto" />
+              Add New Project
+            </Link>
+          </motion.div>
+
+          {/* Bottom Row */}
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-            Upcoming Events
-          </Link>
+            <Link
+              to="/events"
+              className="bg-gray-800 hover:bg-gray-900 text-white font-medium py-4 px-8 w-full max-w-md text-center text-lg rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
+            >
+              <CalendarIcon className="w-6 h-6 mb-2 mx-auto" />
+              Upcoming Events
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <Link
+              to="/import-project"
+              className="bg-gray-800 hover:bg-gray-900 text-white font-medium py-4 px-8 w-full max-w-md text-center text-lg rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
+            >
+              <UploadIcon className="w-6 h-6 mb-2 mx-auto" />
+              Upload Project
+            </Link>
+          </motion.div>
         </div>
       </main>
       <Footer />

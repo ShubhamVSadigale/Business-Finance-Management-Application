@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import {useParams, Link} from "react-router-dom";
 import axios from "axios";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function ProjectDetails() {
   const [project, setProject] = useState(null);
@@ -38,6 +40,9 @@ function ProjectDetails() {
   }
 
   return (
+    <div>
+      <Navbar />
+
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">{project.name}</h1>
       <div className="bg-white shadow-md rounded-lg p-6 mb-8">
@@ -62,7 +67,7 @@ function ProjectDetails() {
         </p>
         <Link
           to={`/edit-project/${project.id}`}
-          className="mt-4 inline-block px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+          className="mt-4 inline-block px-6 py-2 text-white bg-gray-800 rounded-lg hover:bg-blue-900"
         >
           Edit Project
         </Link>
@@ -82,6 +87,9 @@ function ProjectDetails() {
         </ul>
       </div>
     </div>
+    <Footer />
+</div>
+
   );
 }
 
