@@ -8,85 +8,58 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bfms.model.JwtRequest;
-import com.bfms.model.JwtResponse;
-import com.bfms.model.User;
-import com.bfms.repository.UserRepository;
+import com.bfms.dto.AuthRequest;
+import com.bfms.model.UserInfo;
 import com.bfms.security.JwtHelper;
-import com.bfms.service.CustomUserDetailsService;
+import com.bfms.service.JwtService;
+import com.bfms.service.JwtServices;
+import com.bfms.service.ProjectService;
 
 import jakarta.validation.Valid;
-
 @RestController
+//@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/auth")
 public class AuthController {
-	@Autowired
-	private UserDetailsService userDetailsService;
-
-//	@Autowired
-//	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
-	private AuthenticationManager manager;
+	private JwtServices service;
+	@Autowired
+	private JwtService jwtService;
 
 	@Autowired
-	private UserRepository userRepository;
+	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private JwtHelper helper;
-
-	private Logger logger = LoggerFactory.getLogger(AuthController.class);
-
-//	@PostMapping("/register")
-//	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
-//
-//		user.setPassword(passwordEncoder.encode(user.getPassword()));
-//
-//		return ResponseEntity.ok(userRepository.save(user));
-//	}
-
-	@PostMapping("/login")
-	public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
-
-		this.doAuthenticate(request.getEmail(), request.getPassword());
-
-		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-
-//			UserDetails userDetails = customUserDetailsService.loadUserByUsername(request.getEmail());
-		String token = this.helper.generateToken(userDetails);
-
-		JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
-		return new ResponseEntity<>(response, HttpStatus.OK);
-
+	@GetMapping("/welcome")
+	public String welcome() {
+		return "Welcome this endpoint is not secure";
 	}
+	
+	 @PostMapping("/new")
+	    public String addNewUser(@RequestBody UserInfo userInfo) {
+	        return service.addUser(userInfo);
+	    }
 
-	private void doAuthenticate(String email, String password) {
-
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
-		try {
-			manager.authenticate(authentication);
-
-		} catch (BadCredentialsException e) {
-			throw new BadCredentialsException(" Invalid Username or Password  !!");
+	@PostMapping("/authenticate")
+	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+		if (authentication.isAuthenticated()) {
+			return jwtService.generateToken(authRequest.getUsername());
+		} else {
+			throw new UsernameNotFoundException("invalid user request !");
 		}
-
 	}
-
-	@ExceptionHandler(BadCredentialsException.class)
-	public String exceptionHandler() {
-		return "Credentials Invalid !!";
-	}
-
 }

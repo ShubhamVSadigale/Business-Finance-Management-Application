@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 import axios from "axios";
-import Navbar from "./Navbar"; 
-import Footer from "./Footer"; 
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 // Dashboard updated
 function Dashboard() {
@@ -10,10 +10,15 @@ function Dashboard() {
 
   useEffect(() => {
     // Fetch projects from your API
-    axios.get("http://localhost:8080/api/projects").then((response) => {
-      console.log(response.data);
-      setProjects(response.data);
-    });
+    axios
+      .get("http://localhost:8080/api/projects")
+      .then((response) => {
+        console.log(response.data);
+        setProjects(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // For demo purposes, you can mock data like this:
     // setProjects([
@@ -46,7 +51,8 @@ function Dashboard() {
                     <span className="font-medium">Serial No:</span> {project.id}
                   </p>
                   <p className="text-gray-600 mb-4">
-                    <span className="font-medium">Status:</span> {project.status}
+                    <span className="font-medium">Status:</span>{" "}
+                    {project.status}
                   </p>
                   <div className="mt-6 text-center">
                     <Link
@@ -71,7 +77,7 @@ function Dashboard() {
           </Link>
         </div>
       </div>
-      <Footer /> 
+      <Footer />
     </div>
   );
 }
