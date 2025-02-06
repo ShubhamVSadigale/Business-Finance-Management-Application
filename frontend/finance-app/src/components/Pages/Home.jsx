@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../Layout/Navbar";
+import Footer from "../Layout/Footer";
 import { BriefcaseIcon, PlusCircleIcon, CalendarIcon, UploadIcon } from '@heroicons/react/outline'; // Assuming you're using Heroicons v1
 import { motion } from 'framer-motion';
 

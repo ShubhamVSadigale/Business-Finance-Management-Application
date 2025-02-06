@@ -1,8 +1,9 @@
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import axios from "axios";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { fetchProjects } from "../../api/apiService"; 
+// import Navbar from "../Layout/Navbar"; 
+
+// import Footer from "../Layout/Footer"; 
 
 // Dashboard updated
 function Dashboard() {
@@ -10,31 +11,26 @@ function Dashboard() {
 
   useEffect(() => {
     // Fetch projects from your API
-    axios
-      .get("http://localhost:8080/api/projects")
-      .then((response) => {
-        console.log(response.data);
-        setProjects(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getProjects = async () => {
+      try {
+        const data = await fetchProjects(); // Fetch projects using apiService
+        console.log(data);
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
 
-    // For demo purposes, you can mock data like this:
-    // setProjects([
-    //   {id: 1, name: "Project A", status: "In Progress"},
-    //   {id: 2, name: "Project B", status: "Completed"},
-    //   {id: 3, name: "Project C", status: "Planning"},
-    // ]);
-  }, []);
+    getProjects(); // Call the async function to fetch projects
+  }, []); // Empty dependency array to run once when the component mounts
 
   return (
     <div>
-      <Navbar /> {/* Include the Navbar2 component */}
+      {/* <Navbar />  */}
       <div className="container mx-auto px-6 py-12">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
+        {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
           Projects
-        </h1>
+        </h1> */}
 
         <div className="flex flex-wrap justify-center gap-8">
           {projects.map((project) => (
@@ -51,8 +47,7 @@ function Dashboard() {
                     <span className="font-medium">Serial No:</span> {project.id}
                   </p>
                   <p className="text-gray-600 mb-4">
-                    <span className="font-medium">Status:</span>{" "}
-                    {project.status}
+                    <span className="font-medium">Status:</span> {project.status}
                   </p>
                   <div className="mt-6 text-center">
                     <Link
@@ -77,7 +72,7 @@ function Dashboard() {
           </Link>
         </div>
       </div>
-      <Footer />
+      {/* <Footer />  */}
     </div>
   );
 }
