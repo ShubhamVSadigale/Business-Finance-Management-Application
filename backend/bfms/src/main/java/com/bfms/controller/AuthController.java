@@ -47,7 +47,7 @@ public class AuthController {
 		return "Welcome this endpoint is not secure";
 	}
 	
-	 @PostMapping("/new")
+	 @PostMapping("/signup")
 	    public String addNewUser(@RequestBody UserInfo userInfo) {
 	        return service.addUser(userInfo);
 	    }

@@ -52,7 +52,7 @@ public class SecurityConfig {
         		.cors().configurationSource(corsConfigurationSource()) // Enable CORS
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/auth/new","/auth/authenticate").permitAll()
+                .requestMatchers("/auth/signup","/auth/authenticate").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/api/**")
                 .authenticated().and()
