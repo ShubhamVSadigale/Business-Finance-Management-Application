@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { CalendarIcon } from "lucide-react";
-import { Link } from "react-router-dom"; 
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { Link } from "react-router-dom";
+import { fetchEvents } from "../../api/apiService"; 
+import Navbar from "../Layout/Navbar";
+import Footer from "../Layout/Footer";
 
 function EventsPage() {
-  //const [project, setProject] = useState(null);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showEditButton, setShowEditButton] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/projects/upcoming-events")
-      .then((response) => {
-        console.log("API Response:", response.data);
-        setEvents(response.data);
+    // Fetch events using apiService function
+    const getEvents = async () => {
+      try {
+        const fetchedEvents = await fetchEvents(); // Fetch events via API service
+        console.log("API Response:", fetchedEvents);
+        setEvents(fetchedEvents);
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError("Failed to load events.");
         setLoading(false);
         console.error("Error fetching events:", error);
-      });
+      }
+    };
+
+    getEvents(); // Fetch events when the component mounts
   }, []);
 
   if (loading) return <div className="text-center text-lg">Loading events...</div>;

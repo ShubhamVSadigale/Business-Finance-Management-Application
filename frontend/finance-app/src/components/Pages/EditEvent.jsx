@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchEventById, updateEvent } from "../apiService"; // Importing from the new service
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import { fetchEvents, updateEvent } from "../../api/apiService"; // need to change this to fetch only event of specific id add- fetchEventsByID
+import Navbar from "../Layout/Navbar";
+import Footer from "../Layout/Footer";
 
 function EditEvent() {
   const { eventId } = useParams(); // Get eventId from the URL
@@ -17,7 +17,7 @@ function EditEvent() {
 
   // Fetch event details by ID when the component mounts
   useEffect(() => {
-    fetchEventById(eventId).then((response) => {
+    fetchEvents(eventId).then((response) => {
       setEventData(response);
     }).catch((error) => {
       console.error("Error fetching event details:", error);

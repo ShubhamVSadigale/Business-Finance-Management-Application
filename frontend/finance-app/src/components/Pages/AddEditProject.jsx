@@ -4,9 +4,9 @@ import {
   fetchProjectById,
   addProject,
   updateProject,
-} from "../apiService"; // Importing from the new service
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+} from "../../api/apiService";  // Importing from the new service
+import Navbar from "../Layout/Navbar";
+import Footer from "../Layout/Footer";
 
 function AddEditProject() {
   const [formData, setFormData] = useState({

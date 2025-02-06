@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchProjects } from "../apiService"; // Importing from the new service
-import Navbar from "./Navbar"; // Import Navbar
+import { fetchProjects } from "../../api/apiService"; // Importing from the new service
+// import Navbar from "../Layout/Navbar"; // Import Navbar
 
 function DashboardList() {
   const [projects, setProjects] = useState([]);
@@ -28,16 +28,16 @@ function DashboardList() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto px-6 py-12">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
+        {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
           Projects
-        </h1>
+        </h1> */}
 
 
         <div className="flex flex-wrap justify-center gap-8">
           <div className="w-full md:w-3/4 lg:w-full px-4">
-            <h2 className="text-2xl font-semibold text-gray-700 mb-6">Projects</h2>
+            {/* <h2 className="text-2xl font-semibold text-gray-700 mb-6">Projects</h2> */}
 
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <table className="min-w-full table-auto text-sm text-gray-600">
