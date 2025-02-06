@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { fetchProjects } from "../apiService"; // Importing from the new service
 import Navbar from "./Navbar"; // Import Navbar
 
-// Dashboard updated
 function DashboardList() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     // Fetch projects from your API
-    axios.get("http://localhost:8080/api/projects").then((response) => {
-      console.log(response.data);
-      setProjects(response.data);
+    fetchProjects().then((data) => {
+      console.log(data);
+      setProjects(data);
     });
+
 
     // For demo purposes, you can mock data like this:
     // setProjects([
@@ -22,13 +22,18 @@ function DashboardList() {
     // ]);
   }, []);
 
+  if (!projects.length) {
+    return <div className="text-center text-lg">No projects available.</div>;
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Navbar /> {/* Add Navbar here */}
+      <Navbar />
       <div className="container mx-auto px-6 py-12">
         <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          Dashboard
+          Projects
         </h1>
+
 
         <div className="flex flex-wrap justify-center gap-8">
           <div className="w-full md:w-3/4 lg:w-full px-4">

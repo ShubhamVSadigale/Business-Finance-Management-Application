@@ -1,5 +1,6 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addProject } from "../apiService"; // Importing from the new service
 
 function AddProject2() {
   const [project, setProject] = useState({
@@ -10,8 +11,9 @@ function AddProject2() {
     status: "Planning",
     events: [],
   });
-
   const navigate = useNavigate();
+
+
 
   const handleChange = (e) => {
     setProject({...project, [e.target.name]: e.target.value});
@@ -19,22 +21,11 @@ function AddProject2() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the project data to your backend
-    axios
-      .post(`http://localhost:8080/api/projects`, project)
-      .then((response) => {
-        console.log(response);
-        console.log("Project added");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("ID: ", id);
-        console.log(project);
-      });
-    console.log("New Project:", project);
-    // For demo purposes, we'll just redirect to the dashboard
-    navigate("/dashboard");
+    addProject(project).then(() => {
+      navigate("/dashboard");
+    });
   };
+
 
   return (
     <div className="container mx-auto px-4 py-8">

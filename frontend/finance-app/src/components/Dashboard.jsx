@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Navbar from "./Navbar"; 
-import Footer from "./Footer"; 
+import { fetchProjects } from "../apiService"; // Importing from the new service
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
-// Dashboard updated
 function Dashboard() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     // Fetch projects from your API
-    axios.get("http://localhost:8080/api/projects").then((response) => {
-      console.log(response.data);
-      setProjects(response.data);
+    fetchProjects().then((data) => {
+      console.log(data);
+      setProjects(data);
     });
+
 
     // For demo purposes, you can mock data like this:
     // setProjects([
@@ -23,56 +23,30 @@ function Dashboard() {
     // ]);
   }, []);
 
+  if (!projects.length) {
+    return <div className="text-center text-lg">No projects available.</div>;
+  }
+
   return (
     <div>
-      <Navbar /> {/* Include the Navbar2 component */}
-      <div className="container mx-auto px-6 py-12">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          Projects
-        </h1>
-
-        <div className="flex flex-wrap justify-center gap-8">
+      <Navbar />
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {projects.map((project) => (
-            <div
-              key={project.id}
-              className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8"
-            >
-              <div className="bg-white shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    <span className="font-medium">Serial No:</span> {project.id}
-                  </p>
-                  <p className="text-gray-600 mb-4">
-                    <span className="font-medium">Status:</span> {project.status}
-                  </p>
-                  <div className="mt-6 text-center">
-                    <Link
-                      to={`/project/${project.id}`}
-                      className="inline-block px-6 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-900 transition duration-200 ease-in-out"
-                    >
-                      View Project
-                    </Link>
-                  </div>
-                </div>
-              </div>
+            <div key={project.id} className="bg-white shadow-md rounded-lg p-6">
+              <h2 className="text-xl font-semibold">{project.title}</h2>
+              <p className="text-gray-600">Status: {project.status}</p>
+              <Link to={`/project/${project.id}`} className="text-blue-500 hover:underline">
+                View Details
+              </Link>
             </div>
           ))}
         </div>
-
-        <div className="flex justify-center mt-8">
-          <Link
-            to="/add-project"
-            className="inline-block px-6 py-3 text-white bg-gray-800 rounded-lg shadow-lg hover:bg-gray-900 transition duration-200 ease-in-out transform hover:scale-105"
-          >
-            Add New Project
-          </Link>
-        </div>
       </div>
-      <Footer /> 
+      <Footer />
     </div>
+
   );
 }
 

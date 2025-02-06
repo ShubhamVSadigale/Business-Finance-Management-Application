@@ -8,7 +8,7 @@ function EditProject() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    status: "Planning",
+    status: "",
   });
   const [events, setEvents] = useState([]);
   const {id} = useParams();

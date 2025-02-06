@@ -23,11 +23,19 @@ public class ProjectService {
     private EventRepository eventRepository;
 
     public Project addNewProject(Project project) {
-//        project.setStatus(Project.ProjectStatus.PLANNING);
-//    	project.setStatus(Project.ProjectStatus.valueOf(project.getStatus().toString()));
-        project.setStatus(ProjectStatus.fromString(project.getStatus().name()));
+//      project.setStatus(Project.ProjectStatus.PLANNING);
+//  	project.setStatus(Project.ProjectStatus.valueOf(project.getStatus().toString()));
+        System.out.println("Received status: " + project.getStatus());
+
+        if (project.getStatus() == null) {
+            project.setStatus(ProjectStatus.PLANNING);  // Set to default if null
+        } else {
+            project.setStatus(ProjectStatus.fromString(project.getStatus().name()));  // Safely convert status to enum
+        }
+
         return projectRepository.save(project);
     }
+
 
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
