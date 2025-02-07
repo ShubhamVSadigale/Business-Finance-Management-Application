@@ -48,6 +48,7 @@ public class ProjectService {
                 existingProject.setStartDate(updatedProject.getStartDate());
                 existingProject.setEndDate(updatedProject.getEndDate());
                 existingProject.setStatus(updatedProject.getStatus());
+                existingProject.setContactEmail(updatedProject.getContactEmail());
                 return projectRepository.save(existingProject);
             })
             .orElseThrow(() -> new RuntimeException("Project not found"));

@@ -71,6 +71,9 @@ function ProjectDetails() {
             <strong>End date:</strong> {project.endDate}
           </p>
           <p>
+            <strong>Client Contact Email:</strong> {project.contactEmail}
+          </p>
+          <p>
             <strong>Status:</strong> {project.status}
           </p>
           <Link
