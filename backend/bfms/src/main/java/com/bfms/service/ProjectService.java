@@ -26,6 +26,13 @@ public class ProjectService {
 //        project.setStatus(Project.ProjectStatus.PLANNING);
 //    	project.setStatus(Project.ProjectStatus.valueOf(project.getStatus().toString()));
         project.setStatus(ProjectStatus.fromString(project.getStatus().name()));
+        
+        if (project.getEvents() != null) {
+            for (Event event : project.getEvents()) {
+                event.setProjectTitle(project.getTitle());
+            }
+        }
+        
         return projectRepository.save(project);
     }
 
