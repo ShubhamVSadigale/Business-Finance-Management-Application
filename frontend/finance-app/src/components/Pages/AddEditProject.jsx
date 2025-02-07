@@ -25,6 +25,7 @@ function AddEditProject() {
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value});
+    console.log(`Updated FormData: ${e.target.name} = ${e.target.value}`);
   };
 
   const handleEventChange = (e) => {
@@ -210,10 +211,14 @@ function AddEditProject() {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="status"
               name="status"
-              value={formData.status}
+              value={formData.status || ""}
               onChange={handleChange}
+              placeholder="Select status"
               required
             >
+              <option value="" disabled hidden>
+                Select Status
+              </option>
               <option value="Planning">Planning</option>
               <option value="In_Progress">In Progress</option>
               <option value="Completed">Completed</option>
