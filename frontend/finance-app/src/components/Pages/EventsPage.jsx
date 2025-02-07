@@ -59,7 +59,9 @@ function EventsPage() {
                 key={event.id}
                 className="border rounded-lg p-6 shadow-md bg-white hover:shadow-xl transition duration-300 ease-in-out"
               >
-                <h2 className="text-xl font-semibold mb-2">{event.title}</h2>
+                <h2 className="text-xl font-semibold mb-2">
+                  {event.title} | Project : {event.projectTitle}
+                </h2>
                 <p className="text-sm text-gray-600 flex items-center mb-4">
                   <CalendarIcon className="mr-2 h-5 w-5" />
                   {new Date(event.eventDate).toLocaleDateString()}

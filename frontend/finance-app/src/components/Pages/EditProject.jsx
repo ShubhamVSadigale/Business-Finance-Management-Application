@@ -63,8 +63,13 @@ function EditProject() {
       // const updatedProject = await updateProject(id, formData);
       const response = await axios.put(
         `http://localhost:8080/api/projects/${id}`,
-
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       console.log(response.data);
