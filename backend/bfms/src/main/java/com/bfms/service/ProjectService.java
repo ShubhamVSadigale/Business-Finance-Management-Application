@@ -45,6 +45,7 @@ public class ProjectService {
     }
     public List<Project> getProjectByStatus(String status) {
         return projectRepository.findByStatus(Project.ProjectStatus.valueOf(status));
+//        return projectRepository.findByStatus(status);
     }
 
     public Project updateProject(String projectId, Project updatedProject) {
