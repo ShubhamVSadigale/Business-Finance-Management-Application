@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { fetchProjectById, updateProject } from "../../api/apiService"; // Import from apiService
+import {useState, useEffect} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import {fetchProjectById, updateProject} from "../api/apiService"; // Import from apiService
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
+import axios from "axios";
 
 function EditProject() {
   const [formData, setFormData] = useState({
@@ -11,19 +12,37 @@ function EditProject() {
     status: "",
   });
   const [events, setEvents] = useState([]);
-  const { id } = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch project data based on id using the apiService function
     const getProjectData = async () => {
+      //   try {
+      //     const project = await fetchProjectById(id); // Fetch project by id
+      //     console.log(project);
+      //     setFormData(project);
+      //     setEvents(project.events);
+      //   } catch (error) {
+      //     console.error("Error fetching project data:", error);
+      //   }
+      // };
       try {
-        const project = await fetchProjectById(id); // Fetch project by id
-        console.log(project);
-        setFormData(project);
-        setEvents(project.events);
+        const token = localStorage.getItem("token");
+        // const data = await fetchProjects(); // Fetch projects using apiService
+        const response = await axios.get(
+          `http://localhost:8080/api/projects/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log(response.data);
+        setFormData(response.data);
       } catch (error) {
-        console.error("Error fetching project data:", error);
+        console.error("Error fetching projects:", error);
       }
     };
 
@@ -31,7 +50,7 @@ function EditProject() {
   }, [id]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({...formData, [e.target.name]: e.target.value});
   };
 
   const handleSubmit = async (e) => {
@@ -39,8 +58,16 @@ function EditProject() {
     console.log("Updated Project data:", formData);
     // Send the updated data to the backend using apiService function
     try {
-      const updatedProject = await updateProject(id, formData);
-      console.log(updatedProject);
+      const token = localStorage.getItem("token");
+      console.log(token);
+      // const updatedProject = await updateProject(id, formData);
+      const response = await axios.put(
+        `http://localhost:8080/api/projects/${id}`,
+
+        formData
+      );
+
+      console.log(response.data);
       console.log("Project data updated!");
       navigate("/dashboard"); // Navigate to dashboard after update
     } catch (err) {
@@ -55,14 +82,23 @@ function EditProject() {
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8">Edit Project</h1>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded-lg p-6"
+        >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
               Project Id : {formData.id}
             </label>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
               Project Name
             </label>
             <input
@@ -76,7 +112,10 @@ function EditProject() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="description"
+            >
               Description
             </label>
             <textarea
@@ -90,17 +129,26 @@ function EditProject() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
               Project start date : {formData.startDate}
             </label>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
               Project end date : {formData.endDate}
             </label>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="status"
+            >
               Status
             </label>
             <select
@@ -118,7 +166,10 @@ function EditProject() {
           </div>
           <div className="mb-4">
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="name"
+              >
                 Project Events :
               </label>
             </div>
@@ -129,7 +180,9 @@ function EditProject() {
                   <br />
                   <span className="font-semibold">{event.title}</span>
                   <br />
-                  <span className="text-sm text-gray-600">{event.eventDate}</span>
+                  <span className="text-sm text-gray-600">
+                    {event.eventDate}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { fetchProjects } from "../../api/apiService"; // Importing from the new service
+import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
+import {fetchProjects} from "../api/apiService"; // Importing from the new service
 // import Navbar from "../Layout/Navbar"; // Import Navbar
 
 function DashboardList() {
@@ -12,7 +12,6 @@ function DashboardList() {
       console.log(data);
       setProjects(data);
     });
-
 
     // For demo purposes, you can mock data like this:
     // setProjects([
@@ -33,7 +32,6 @@ function DashboardList() {
         {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
           Projects
         </h1> */}
-
 
         <div className="flex flex-wrap justify-center gap-8">
           <div className="w-full md:w-3/4 lg:w-full px-4">

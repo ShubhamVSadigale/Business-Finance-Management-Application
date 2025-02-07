@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { CalendarIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { fetchEvents } from "../../api/apiService"; 
+import {useState, useEffect} from "react";
+import {CalendarIcon} from "lucide-react";
+import {Link} from "react-router-dom";
+import {fetchEvents} from "../api/apiService";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 
@@ -29,7 +29,8 @@ function EventsPage() {
     getEvents(); // Fetch events when the component mounts
   }, []);
 
-  if (loading) return <div className="text-center text-lg">Loading events...</div>;
+  if (loading)
+    return <div className="text-center text-lg">Loading events...</div>;
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (

@@ -12,16 +12,16 @@ import EventsPage from "./components/Pages/EventsPage";
 import EditEvent from "./components/Pages/EditEvent";
 import Account from "./components/Pages/AccountPage";
 
-
 function App() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboardlist" element={<DashboardList />} />
-        <Route path="/dashboard" element={<DashboardPage />} /> 
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/add-project" element={<AddEditProject />} />

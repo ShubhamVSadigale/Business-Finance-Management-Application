@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { fetchProjects } from "../../api/apiService"; 
-// import Navbar from "../Layout/Navbar"; 
+import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
+import axios from "axios";
+import {fetchProjects} from "../api/apiService";
+// import Navbar from "../Layout/Navbar";
 
-// import Footer from "../Layout/Footer"; 
+// import Footer from "../Layout/Footer";
 
 // Dashboard updated
 function Dashboard() {
@@ -11,14 +12,25 @@ function Dashboard() {
 
   useEffect(() => {
     // Fetch projects from your API
+    const token = localStorage.getItem("token");
+    console.log(token);
     const getProjects = async () => {
-      try {
-        const data = await fetchProjects(); // Fetch projects using apiService
-        console.log(data);
-        setProjects(data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
+      // try {
+      //   // const data = await fetchProjects(); // Fetch projects using apiService
+      //   const response = await axios.get("http://localhost:8080/api/projects", {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //   console.log(response.data);
+      //   setProjects(response.data);
+      // } catch (error) {
+      //   console.error("Error fetching projects:", error);
+      // }
+      const resp = await fetchProjects();
+      console.log(resp);
+      setProjects(resp);
     };
 
     getProjects(); // Call the async function to fetch projects
@@ -47,7 +59,8 @@ function Dashboard() {
                     <span className="font-medium">Serial No:</span> {project.id}
                   </p>
                   <p className="text-gray-600 mb-4">
-                    <span className="font-medium">Status:</span> {project.status}
+                    <span className="font-medium">Status:</span>{" "}
+                    {project.status}
                   </p>
                   <div className="mt-6 text-center">
                     <Link
