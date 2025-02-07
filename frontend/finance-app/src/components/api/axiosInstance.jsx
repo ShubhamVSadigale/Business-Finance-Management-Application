@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Load the backend URL from environment variables
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "http://localhost:8080/";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
@@ -15,7 +15,6 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("Token being sent:", token); // Debugging line
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

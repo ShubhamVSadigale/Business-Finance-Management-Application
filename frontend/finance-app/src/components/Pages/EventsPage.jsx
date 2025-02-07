@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {fetchEvents} from "../api/apiService";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
+import axios from "axios";
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -13,11 +14,24 @@ function EventsPage() {
 
   useEffect(() => {
     // Fetch events using apiService function
+    const token = localStorage.getItem("token");
     const getEvents = async () => {
       try {
-        const fetchedEvents = await fetchEvents(); // Fetch events via API service
-        console.log("API Response:", fetchedEvents);
-        setEvents(fetchedEvents);
+        // const fetchedEvents = await fetchEvents(); // Fetch events via API service
+        // console.log("API Response:", fetchedEvents);
+        // setEvents(fetchedEvents);
+        // setLoading(false);
+
+        const response = await axios.get(
+          "http://localhost:8080/api/projects/upcoming-events",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setEvents(response.data);
         setLoading(false);
       } catch (error) {
         setError("Failed to load events.");

@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 import {fetchProjects} from "../api/apiService"; // Importing from the new service
 // import Navbar from "../Layout/Navbar"; // Import Navbar
 
@@ -8,17 +9,30 @@ function DashboardList() {
 
   useEffect(() => {
     // Fetch projects from your API
-    fetchProjects().then((data) => {
-      console.log(data);
-      setProjects(data);
-    });
+    // fetchProjects().then((data) => {
+    //   console.log(data);
+    //   setProjects(data);
+    // });
+    // Fetch projects from your API
+    const token = localStorage.getItem("token");
+    // console.log(token);
+    const getProjects = async () => {
+      try {
+        // const data = await fetchProjects(); // Fetch projects using apiService
+        const response = await axios.get("http://localhost:8080/api/projects", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data);
+        setProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
 
-    // For demo purposes, you can mock data like this:
-    // setProjects([
-    //   {id: 1, name: "Project A", status: "In Progress"},
-    //   {id: 2, name: "Project B", status: "Completed"},
-    //   {id: 3, name: "Project C", status: "Planning"},
-    // ]);
+    getProjects(); // Call the async function to fetch projects
   }, []);
 
   if (!projects.length) {

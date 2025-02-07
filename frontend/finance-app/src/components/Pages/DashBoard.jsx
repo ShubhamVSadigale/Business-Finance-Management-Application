@@ -13,24 +13,21 @@ function Dashboard() {
   useEffect(() => {
     // Fetch projects from your API
     const token = localStorage.getItem("token");
-    console.log(token);
+    // console.log(token);
     const getProjects = async () => {
-      // try {
-      //   // const data = await fetchProjects(); // Fetch projects using apiService
-      //   const response = await axios.get("http://localhost:8080/api/projects", {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   console.log(response.data);
-      //   setProjects(response.data);
-      // } catch (error) {
-      //   console.error("Error fetching projects:", error);
-      // }
-      const resp = await fetchProjects();
-      console.log(resp);
-      setProjects(resp);
+      try {
+        // const data = await fetchProjects(); // Fetch projects using apiService
+        const response = await axios.get("http://localhost:8080/api/projects", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data);
+        setProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
     };
 
     getProjects(); // Call the async function to fetch projects

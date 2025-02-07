@@ -35,6 +35,7 @@ function ProjectDetails() {
         );
         console.log(response.data);
         setProject(response.data);
+        setEvents(response.data.events);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
