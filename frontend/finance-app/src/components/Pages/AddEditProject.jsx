@@ -3,6 +3,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import {fetchProjectById, addProject, updateProject} from "../api/apiService"; // Importing from the new service
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
+import axios from "axios";
 
 function AddEditProject() {
   const [formData, setFormData] = useState({
@@ -32,14 +33,36 @@ function AddEditProject() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    formData.id = "P" + Date.now();
+
+    formData.startDate = generateDateTimeWithDefaultTime(formData.startDate);
+
+    formData.endDate = generateDateTimeWithDefaultTime(formData.endDate);
     if (isEditing) {
-      updateProject(id, formData).then(() => {
-        navigate("/dashboard");
-      });
+      // updateProject(id, formData).then(() => {
+      //   navigate("/dashboard");
+      // });
     } else {
-      addProject(formData).then(() => {
-        navigate("/dashboard");
-      });
+      const token = localStorage.getItem("token");
+
+      axios
+        .post(
+          "http://localhost:8080/api/projects",
+          formData, // Correctly placing formData as the second argument
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          navigate("/dashboard");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
 
