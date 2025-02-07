@@ -54,11 +54,19 @@ public class AuthController {
 
 	@PostMapping("/authenticate")
 	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getUsername());
-		} else {
+		System.out.println("Username : " + authRequest.getUsername());
+		System.out.println("Password : " + authRequest.getPassword());
+		
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+			if (authentication.isAuthenticated()) {
+				return jwtService.generateToken(authRequest.getUsername());
+			} else {
+				throw new UsernameNotFoundException("invalid user request !");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 			throw new UsernameNotFoundException("invalid user request !");
 		}
 	}
