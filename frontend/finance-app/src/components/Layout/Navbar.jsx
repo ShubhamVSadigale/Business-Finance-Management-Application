@@ -18,10 +18,10 @@ import {grey} from "@mui/material/colors";
 
 // Define pages with correct route mappings
 const pages = [
-  {name: "Home", path: "/"},
-  {name: "Projects", path: "/DashBoard"},
+  {name: "Home", path: "/home"},
+  {name: "Projects", path: "/dashboard"},
   {name: "Events", path: "/events"},
-  {name: "Upload", path: "/Upload"},
+  {name: "Upload", path: "/upload-project"},
 ];
 
 // Settings for the user menu

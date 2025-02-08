@@ -1,9 +1,8 @@
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import {fetchProjects} from "../api/apiService";
+import { fetchProjects } from "../api/apiService";
 // import Navbar from "../Layout/Navbar";
-
 // import Footer from "../Layout/Footer";
 
 // Dashboard updated
@@ -34,9 +33,10 @@ function Dashboard() {
   }, []); // Empty dependency array to run once when the component mounts
 
   return (
-    <div>
+    // Added full-width styles to remove the white margin issue
+    <div className="bg-gray-100 min-h-screen flex flex-col w-full overflow-x-hidden">
       {/* <Navbar />  */}
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-6 py-12 flex-grow w-full">
         {/* <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
           Projects
         </h1> */}

@@ -11,6 +11,7 @@ import Home from "./components/Pages/Home";
 import EventsPage from "./components/Pages/EventsPage";
 import EditEvent from "./components/Pages/EditEvent";
 import Account from "./components/Pages/AccountPage";
+import UploadProject from "./components/Pages/UploadProject";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/edit-project/:id" element={<EditProject />} />
         <Route path="/edit-event/:id" element={<EditEvent />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/upload-project" element={<UploadProject />} />
       </Routes>
     </div>
   );
