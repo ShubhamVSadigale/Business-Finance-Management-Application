@@ -61,7 +61,7 @@ function Navbar() {
           <Typography
             variant="h6"
             component={Link}
-            to="/"
+            to="/home"
             sx={{
               mr: 2,
               flexGrow: 1,
