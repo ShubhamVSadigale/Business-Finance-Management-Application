@@ -1,7 +1,7 @@
-import {useState, useEffect} from "react";
-import {CalendarIcon} from "lucide-react";
-import {Link} from "react-router-dom";
-import {fetchEvents} from "../api/apiService";
+import { useState, useEffect } from "react";
+import { CalendarIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { fetchEvents } from "../api/apiService";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import axios from "axios";
@@ -48,9 +48,10 @@ function EventsPage() {
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
-    <div>
+    // Added uniform background and minimum height for full-screen layout
+    <div className="bg-gray-100 min-h-screen flex flex-col w-full overflow-x-hidden">
       <Navbar />
-      <div className="container mx-auto px-4 py-8 max-w-4xl ">
+      <div className="container mx-auto px-4 py-8 max-w-4xl flex-grow">
         <h1 className="text-3xl font-bold mb-8 text-center">Upcoming Events</h1>
         <ul className="space-y-6">
           {events.length > 0 ? (
