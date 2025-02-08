@@ -50,7 +50,7 @@ function EventsPage() {
   return (
     <div>
       <Navbar />
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 py-8 max-w-4xl ">
         <h1 className="text-3xl font-bold mb-8 text-center">Upcoming Events</h1>
         <ul className="space-y-6">
           {events.length > 0 ? (
