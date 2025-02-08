@@ -11,6 +11,7 @@ import com.bfms.repository.EventRepository;
 import com.bfms.repository.ProjectRepository;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,6 +74,7 @@ public class ProjectService {
         return projects.stream()
                 .flatMap(project -> project.getEvents().stream()
                         .filter(event -> event.getEventDate().isAfter(now)))
+                .sorted(Comparator.comparing(Event::getEventDate))
                 .collect(Collectors.toList());
     }
 }
