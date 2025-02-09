@@ -44,8 +44,9 @@ function Navbar() {
       navigate("/account"); // Navigate to the account page
     }
     if (setting === "Logout") {
-      localStorage.setItem("token", "");
-      localStorage.setItem("username", "");
+      // localStorage.setItem("token", "");
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
 
       navigate("/login"); // Navigate to the account page
     }
