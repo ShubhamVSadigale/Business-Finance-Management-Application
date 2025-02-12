@@ -27,13 +27,6 @@ function Register() {
         .post("http://localhost:8080/auth/signup", formData)
         .then((response) => {
           const token = response.data;
-
-          // Save token in local storage
-          // localStorage.setItem("token", token);
-          // localStorage.setItem("username", formData.username);
-          // console.log(response);
-
-          // console.log("Token : " + token);
         });
 
       console.log("Login successful:", response);
@@ -42,8 +35,6 @@ function Register() {
     } catch (error) {
       setError(error.response?.data?.message || "Unokown error occured");
     }
-    // For demo purposes, we'll just redirect to the login page
-    // navigate("/login"); // Redirecting after registration
   };
 
   return (
