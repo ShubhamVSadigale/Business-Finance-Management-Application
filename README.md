@@ -1,4 +1,6 @@
+# Foobar
 Business Finance Management Application
+
 A comprehensive web application for managing business projects, events, and automated notifications. Built with Spring Boot and MongoDB.
 
 Features
